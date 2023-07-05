@@ -1,0 +1,87 @@
+body {
+  background-color: wheat;
+}
+
+#home {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  background-image: url("../../assets/images/background.jpg");
+  background-size: cover;
+  background-position: center;
+
+  section {
+    height: 80%;
+    width: 35%;
+    padding-left: $md;
+    padding-right: $md;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+  }
+
+  .cube-container {
+    text-align: center;
+  }
+
+  .cube {
+    font-size: 8rem;
+    color: $orange;
+  }
+
+  h1 {
+    font-size: $lg;
+    font-weight: 400;
+    text-align: center;
+    color: $off-white;
+  }
+
+  .play-btn-container {
+    width: 100%;
+  }
+
+  .play-btn {
+    display: block;
+    padding: $xs;
+    text-align: center;
+    border-radius: $btn-border-radius;
+    background-color: $green;
+    color: $white;
+    transition: $transition;
+
+    &:hover {
+      background-color: darken($green, 10%);
+    }
+  }
+
+  .auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: $lg;
+  }
+
+  .auth-btn {
+    width: 45%;
+    padding: $xs 0;
+    text-align: center;
+    color: $white;
+    border-radius: $btn-border-radius;
+    transition: $transition;
+  }
+
+  #login-btn {
+    background-color: $red;
+
+    &:hover {
+      background-color: darken($red, 10%);
+    }
+  }
+
+  #signup-btn {
+    background-color: $blue;
+
+    &:hover {
+      background-color: darken($blue, 10%);
+    }
+  }
+}

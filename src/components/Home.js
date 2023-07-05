@@ -10,16 +10,22 @@ const Home = () => {
       </Helmet>
       <div id="home">
         <section>
-          <div>
-            <span className="mdi mdi-cube-outline mdi-48px"></span>
+          <div className="cube-container">
+            <span className="mdi mdi-cube-outline cube"></span>
           </div>
           <h1>Quiz App</h1>
           <div className="play-btn-container">
-            <Link to="/play/instructions">Play</Link>
+            <Link className="play-btn" to="/play/instructions">
+              Play
+            </Link>
           </div>
           <div className="auth-container">
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link className="auth-btn" to="/login" id="login-btn">
+              Login
+            </Link>
+            <Link className="auth-btn" to="/register" id="signup-btn">
+              Sign Up
+            </Link>
           </div>
         </section>
       </div>
