@@ -1,5 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 @import url("@mdi/font/css/materialdesignicons.css");
-
-body {
-  background-color: wheat;
-}
+@import "./base/base";
+@import "./base/settings";
+@import "./components//home";
