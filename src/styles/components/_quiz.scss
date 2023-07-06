@@ -1,0 +1,91 @@
+.questions {
+  background-color: $off-white;
+  border-left: 5px solid $blue;
+  width: 80%;
+  margin: $sm auto 0;
+  padding: $sm $md;
+
+  h1 {
+    font-size: 3rem;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: lighter;
+  }
+
+  .lifeline-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .lifeline {
+    position: relative;
+    top: -3px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin: 0 0 $md;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .options-container {
+    display: inline-block;
+    width: 50%;
+  }
+
+  .option {
+    width: 90%;
+    margin: $md auto;
+    padding: $xs;
+    text-align: center;
+    border-radius: $btn-border-radius;
+    background-color: $blue;
+    color: $white;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background-color: darken($blue, 20%);
+    }
+  }
+
+  .btn-container {
+    width: 80%;
+    display: flex;
+    margin: 0 auto $sm;
+    padding: $md;
+
+    button {
+      border: none;
+      border-radius: $btn-border-radius;
+      margin-right: $md;
+      padding: $xxs $sm;
+      font-family: $quicksand;
+      box-shadow: $shadow;
+      color: $off-white;
+      transition: $transition;
+
+      &:nth-child(1) {
+        background-color: darken($blue, 10%);
+        &:hover {
+          background-color: darken($blue, 20%);
+        }
+      }
+
+      &:nth-child(2) {
+        background-color: $green;
+        &:hover {
+          background-color: darken($green, 10%);
+        }
+      }
+
+      &:nth-child(3) {
+        background-color: $red;
+        &:hover {
+          background-color: darken($red, 10%);
+        }
+      }
+    }
+  }
+}
