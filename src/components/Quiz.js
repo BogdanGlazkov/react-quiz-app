@@ -1,12 +1,61 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
+import questions from "../questions.json";
 
 class Quiz extends Component {
-  //   constructor(props) {
-  //     super(props);
-  //   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions,
+      currentQuestionIndex: 0,
+      currentQuestion: {},
+      prevQuestion: {},
+      nextQuestion: {},
+      answer: "",
+      totalQuestions: 0,
+      answeredQuestions: 0,
+      score: 0,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      hints: 5,
+      fiftyFifty: 2,
+      usedFiftyFifty: false,
+      time: {},
+    };
+  }
+
+  componentDidMount() {
+    const { questions, currentQuestion, prevQuestion, nextQuestion } =
+      this.state;
+
+    this.displayQuestions(
+      questions,
+      currentQuestion,
+      prevQuestion,
+      nextQuestion
+    );
+  }
+
+  displayQuestions = (
+    questions = this.state.questions,
+    currentQuestion,
+    prevQuestion,
+    nextQuestion
+  ) => {
+    let { currentQuestionIndex } = this.state;
+    if (questions.length) {
+      questions = this.state.questions;
+      currentQuestion = questions[currentQuestionIndex];
+      nextQuestion = questions[currentQuestionIndex + 1];
+      prevQuestion = questions[currentQuestionIndex - 1];
+      const answer = currentQuestion.answer;
+      this.setState({ currentQuestion, nextQuestion, prevQuestion, answer });
+    }
+  };
 
   render() {
+    const { currentQuestion } = this.state;
+
     return (
       <>
         <Helmet>
@@ -33,14 +82,14 @@ class Quiz extends Component {
               <span className="mdi mdi-clock-outline mdi-24px"></span>
             </p>
           </div>
-          <h2>Google was founded in what year?</h2>
+          <h2>{currentQuestion.question}</h2>
           <div className="options-container">
-            <p className="option">1997</p>
-            <p className="option">1998</p>
+            <p className="option">{currentQuestion.optionA}</p>
+            <p className="option">{currentQuestion.optionB}</p>
           </div>
           <div className="options-container">
-            <p className="option">1999</p>
-            <p className="option">2000</p>
+            <p className="option">{currentQuestion.optionC}</p>
+            <p className="option">{currentQuestion.optionD}</p>
           </div>
           <div className="btn-container">
             <button type="button">Previous</button>
