@@ -51,7 +51,7 @@ const QuizInstructions = () => {
         </ul>
         <div className="btn-container">
           <Link to="/">No, take me back</Link>
-          <Link to="/play">Okay, let's do this</Link>
+          <Link to="/play/quiz">Okay, let's do this</Link>
         </div>
       </div>
     </>
