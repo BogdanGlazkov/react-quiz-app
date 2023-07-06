@@ -1,0 +1,41 @@
+.instructions.container {
+  border: 1px solid darken($off-white, 10%);
+  border-radius: $box-border-radius;
+  margin: 0 auto;
+  padding: $sm $lg;
+
+  h1 {
+    font-size: $md;
+    text-align: center;
+    color: $off-black;
+  }
+
+  .browser-default {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding-left: $md;
+  }
+
+  .lifeline-icon {
+    position: relative;
+    top: -3px;
+    color: $green;
+    cursor: pointer;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $lg;
+
+    & a {
+      padding: $xxs;
+      border-radius: $btn-border-radius;
+      transition: $transition;
+
+      &:hover {
+        box-shadow: $shadow;
+      }
+    }
+  }
+}
