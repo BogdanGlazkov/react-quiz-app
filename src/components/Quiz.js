@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import M from "materialize-css";
 import questions from "../questions.json";
+import correctSound from "../assets/audio/correct-answer.mp3";
+import wrongSound from "../assets/audio/wrong-answer.mp3";
+import buttonSound from "../assets/audio/button-sound.mp3";
 
 class Quiz extends Component {
   constructor(props) {
@@ -44,13 +47,21 @@ class Quiz extends Component {
     nextQuestion
   ) => {
     let { currentQuestionIndex } = this.state;
+
     if (questions.length) {
       questions = this.state.questions;
       currentQuestion = questions[currentQuestionIndex];
       nextQuestion = questions[currentQuestionIndex + 1];
       prevQuestion = questions[currentQuestionIndex - 1];
       const answer = currentQuestion.answer;
-      this.setState({ currentQuestion, nextQuestion, prevQuestion, answer });
+
+      this.setState({
+        currentQuestion,
+        nextQuestion,
+        prevQuestion,
+        answer,
+        totalQuestions: questions.length,
+      });
     }
   };
 
@@ -62,62 +73,82 @@ class Quiz extends Component {
     }
   };
 
+  handleButtonClick = () => {
+    setTimeout(() => {
+      document.getElementById("button-sound").play();
+    }, 500);
+  };
+
   onCorrectAnswer = () => {
+    document.getElementById("correct-sound").play();
     M.toast({
       html: "Correct Answer!",
       classes: "toast-valid",
       displayLength: 1500,
     });
-    this.setState(
-      (prevState) => ({
-        score: prevState.score + 1,
-        correctAnswers: prevState.correctAnswers + 1,
-        currentQuestionIndex: prevState.currentQuestionIndex + 1,
-        answeredQuestions: prevState.answeredQuestions + 1,
-      }),
-      () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.state.currentQuestion,
-          this.state.prevQuestion,
-          this.state.nextQuestion
-        );
-      }
-    );
+
+    setTimeout(() => {
+      this.setState(
+        (prevState) => ({
+          score: prevState.score + 1,
+          correctAnswers: prevState.correctAnswers + 1,
+          currentQuestionIndex: prevState.currentQuestionIndex + 1,
+          answeredQuestions: prevState.answeredQuestions + 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.prevQuestion,
+            this.state.nextQuestion
+          );
+        }
+      );
+    }, 1500);
   };
 
   onWrongAnswer = () => {
+    document.getElementById("wrong-sound").play();
     navigator.vibrate(1000);
     M.toast({
       html: "Wrong Answer!",
       classes: "toast-invalid",
       displayLength: 1500,
     });
-    this.setState(
-      (prevState) => ({
-        wrongAnswers: prevState.wrongAnswers + 1,
-        currentQuestionIndex: prevState.currentQuestionIndex + 1,
-        answeredQuestions: prevState.answeredQuestions + 1,
-      }),
-      () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.state.currentQuestion,
-          this.state.prevQuestion,
-          this.state.nextQuestion
-        );
-      }
-    );
+
+    setTimeout(() => {
+      this.setState(
+        (prevState) => ({
+          wrongAnswers: prevState.wrongAnswers + 1,
+          currentQuestionIndex: prevState.currentQuestionIndex + 1,
+          answeredQuestions: prevState.answeredQuestions + 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.prevQuestion,
+            this.state.nextQuestion
+          );
+        }
+      );
+    }, 1500);
   };
 
   render() {
-    const { currentQuestion } = this.state;
+    const { currentQuestion, currentQuestionIndex, totalQuestions } =
+      this.state;
 
     return (
       <>
         <Helmet>
           <title>Quiz App - Quiz</title>
         </Helmet>
+        <>
+          <audio id="correct-sound" src={correctSound}></audio>
+          <audio id="wrong-sound" src={wrongSound}></audio>
+          <audio id="button-sound" src={buttonSound}></audio>
+        </>
         <div className="questions">
           <h1>Quiz Mode</h1>
           <div className="lifeline-container">
@@ -132,7 +163,9 @@ class Quiz extends Component {
           </div>
           <div className="lifeline-container">
             <p>
-              <span className="lifeline">1 of 15</span>
+              <span className="lifeline">
+                {currentQuestionIndex + 1} of {totalQuestions}
+              </span>
             </p>
             <p>
               <span className="lifeline">2:15</span>
@@ -157,9 +190,15 @@ class Quiz extends Component {
             </p>
           </div>
           <div className="btn-container">
-            <button type="button">Previous</button>
-            <button type="button">Next</button>
-            <button type="button">Quit</button>
+            <button type="button" onClick={this.handleButtonClick}>
+              Previous
+            </button>
+            <button type="button" onClick={this.handleButtonClick}>
+              Next
+            </button>
+            <button type="button" onClick={this.handleButtonClick}>
+              Quit
+            </button>
           </div>
         </div>
       </>
