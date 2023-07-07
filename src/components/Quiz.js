@@ -73,10 +73,68 @@ class Quiz extends Component {
     }
   };
 
-  handleButtonClick = () => {
-    setTimeout(() => {
+  handleBtnClick = (e) => {
+    switch (e.target.id) {
+      case "next-btn":
+        this.handleNextBtnClick();
+        break;
+
+      case "prev-btn":
+        this.handlePrevBtnClick();
+        break;
+
+      case "quit-btn":
+        this.handleQuitBtnClick();
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  handleNextBtnClick = (e) => {
+    if (this.state.nextQuestion) {
       document.getElementById("button-sound").play();
-    }, 500);
+      this.setState(
+        (prevState) => ({
+          currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.prevQuestion,
+            this.state.nextQuestion
+          );
+        }
+      );
+    }
+  };
+
+  handlePrevBtnClick = (e) => {
+    if (this.state.prevQuestion) {
+      document.getElementById("button-sound").play();
+      this.setState(
+        (prevState) => ({
+          currentQuestionIndex: prevState.currentQuestionIndex - 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.prevQuestion,
+            this.state.nextQuestion
+          );
+        }
+      );
+    }
+  };
+
+  handleQuitBtnClick = (e) => {
+    document.getElementById("button-sound").play();
+    if (window.confirm("Are you sure you want to quit?")) {
+      window.location.replace("/");
+    }
   };
 
   onCorrectAnswer = () => {
@@ -190,13 +248,13 @@ class Quiz extends Component {
             </p>
           </div>
           <div className="btn-container">
-            <button type="button" onClick={this.handleButtonClick}>
+            <button id="prev-btn" type="button" onClick={this.handleBtnClick}>
               Previous
             </button>
-            <button type="button" onClick={this.handleButtonClick}>
+            <button id="next-btn" type="button" onClick={this.handleBtnClick}>
               Next
             </button>
-            <button type="button" onClick={this.handleButtonClick}>
+            <button id="quit-btn" type="button" onClick={this.handleBtnClick}>
               Quit
             </button>
           </div>
