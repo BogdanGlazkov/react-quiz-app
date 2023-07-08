@@ -22,6 +22,16 @@
     top: -3px;
   }
 
+  .lifeline-icon {
+    color: $green;
+    cursor: pointer;
+
+    &:hover {
+      color: darken($orange, 10%);
+      background: none;
+    }
+  }
+
   h2 {
     font-size: 1.2rem;
     margin: 0 0 $md;

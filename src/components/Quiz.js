@@ -24,6 +24,7 @@ class Quiz extends Component {
       hints: 5,
       fiftyFifty: 2,
       usedFiftyFifty: false,
+      prevRandomNumbers: [],
       time: {},
     };
   }
@@ -55,13 +56,19 @@ class Quiz extends Component {
       prevQuestion = questions[currentQuestionIndex - 1];
       const answer = currentQuestion.answer;
 
-      this.setState({
-        currentQuestion,
-        nextQuestion,
-        prevQuestion,
-        answer,
-        totalQuestions: questions.length,
-      });
+      this.setState(
+        {
+          currentQuestion,
+          nextQuestion,
+          prevQuestion,
+          answer,
+          totalQuestions: questions.length,
+          prevRandomNumbers: [],
+        },
+        () => {
+          this.showOptions();
+        }
+      );
     }
   };
 
@@ -193,9 +200,52 @@ class Quiz extends Component {
     }, 1500);
   };
 
+  showOptions = () => {
+    const options = document.querySelectorAll(".option");
+    options.forEach((el) => (el.style.visibility = "visible"));
+  };
+
+  handleHints = () => {
+    if (this.state.hints <= 0) return;
+    const options = document.querySelectorAll(".option");
+    let answerIndex;
+
+    options.forEach((el, idx) => {
+      if (el.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+        answerIndex = idx;
+      }
+    });
+
+    while (true) {
+      const randomNumber = Math.round(Math.random() * 3);
+      if (
+        randomNumber !== answerIndex &&
+        !this.state.prevRandomNumbers.includes(randomNumber)
+      ) {
+        options.forEach((el, idx) => {
+          if (idx === randomNumber) {
+            el.style.visibility = "hidden";
+            this.setState((prevState) => ({
+              hints: prevState.hints - 1,
+              prevRandomNumbers:
+                prevState.prevRandomNumbers.concat(randomNumber),
+            }));
+          }
+        });
+        break;
+      }
+      if (this.state.prevRandomNumbers.length >= 3) break;
+    }
+  };
+
   render() {
-    const { currentQuestion, currentQuestionIndex, totalQuestions } =
-      this.state;
+    const {
+      currentQuestion,
+      currentQuestionIndex,
+      totalQuestions,
+      hints,
+      fiftyFifty,
+    } = this.state;
 
     return (
       <>
@@ -215,8 +265,11 @@ class Quiz extends Component {
               <span className="lifeline">2</span>
             </p>
             <p>
-              <span className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"></span>
-              <span className="lifeline">5</span>
+              <span
+                className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"
+                onClick={this.handleHints}
+              ></span>
+              <span className="lifeline">{hints}</span>
             </p>
           </div>
           <div className="lifeline-container">
