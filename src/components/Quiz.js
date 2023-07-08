@@ -64,6 +64,7 @@ class Quiz extends Component {
           answer,
           totalQuestions: questions.length,
           prevRandomNumbers: [],
+          usedFiftyFifty: false,
         },
         () => {
           this.showOptions();
@@ -238,6 +239,55 @@ class Quiz extends Component {
     }
   };
 
+  handleFiftyFifty = () => {
+    if (this.state.fiftyFifty <= 0 || this.state.usedFiftyFifty) return;
+    const options = document.querySelectorAll(".option");
+    const randomNumbers = [];
+    let answerIndex;
+
+    options.forEach((el, idx) => {
+      if (el.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+        answerIndex = idx;
+      }
+    });
+
+    let count = 0;
+    do {
+      const randomNumber = Math.round(Math.random() * 3);
+      if (randomNumber !== answerIndex) {
+        if (
+          randomNumbers.length < 2 &&
+          !randomNumbers.includes(randomNumber) &&
+          !randomNumbers.includes(answerIndex)
+        ) {
+          randomNumbers.push(randomNumber);
+          count++;
+        } else {
+          while (true) {
+            const newRandomNumber = Math.round(Math.random() * 3);
+            if (
+              !randomNumbers.includes(newRandomNumber) &&
+              !randomNumbers.includes(answerIndex)
+            ) {
+              randomNumbers.push(newRandomNumber);
+              count++;
+              break;
+            }
+          }
+        }
+      }
+    } while (count < 2);
+    options.forEach((el, idx) => {
+      if (randomNumbers.includes(idx)) {
+        el.style.visibility = "hidden";
+      }
+    });
+    this.setState((prevState) => ({
+      fiftyFifty: prevState.fiftyFifty - 1,
+      usedFiftyFifty: true,
+    }));
+  };
+
   render() {
     const {
       currentQuestion,
@@ -261,15 +311,20 @@ class Quiz extends Component {
           <h1>Quiz Mode</h1>
           <div className="lifeline-container">
             <p>
-              <span className="mdi mdi-set-center mdi-24px lifeline-icon"></span>
-              <span className="lifeline">2</span>
+              <span
+                className="mdi mdi-set-center mdi-24px lifeline-icon"
+                onClick={this.handleFiftyFifty}
+              >
+                <span className="lifeline">{fiftyFifty}</span>
+              </span>
             </p>
             <p>
               <span
                 className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"
                 onClick={this.handleHints}
-              ></span>
-              <span className="lifeline">{hints}</span>
+              >
+                <span className="lifeline">{hints}</span>
+              </span>
             </p>
           </div>
           <div className="lifeline-container">
