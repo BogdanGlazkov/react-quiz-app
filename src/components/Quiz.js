@@ -27,6 +27,7 @@ class Quiz extends Component {
       prevRandomNumbers: [],
       time: {},
     };
+    this.interval = null;
   }
 
   componentDidMount() {
@@ -39,6 +40,7 @@ class Quiz extends Component {
       prevQuestion,
       nextQuestion
     );
+    this.startTimer();
   }
 
   displayQuestions = (
@@ -288,6 +290,36 @@ class Quiz extends Component {
     }));
   };
 
+  startTimer = () => {
+    const countDownTime = Date.now() + 300000;
+    this.interval = setInterval(() => {
+      const now = new Date();
+      const distance = countDownTime - now;
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance < 0) {
+        clearInterval(this.interval);
+        this.setState(
+          {
+            time: {
+              minutes: 0,
+              seconds: 0,
+            },
+          },
+          () => {
+            alert("Quiz has ended");
+            window.location.replace("/");
+          }
+        );
+      } else {
+        this.setState(() => ({
+          time: { minutes, seconds },
+        }));
+      }
+    }, 1000);
+  };
+
   render() {
     const {
       currentQuestion,
@@ -295,6 +327,7 @@ class Quiz extends Component {
       totalQuestions,
       hints,
       fiftyFifty,
+      time,
     } = this.state;
 
     return (
@@ -334,7 +367,9 @@ class Quiz extends Component {
               </span>
             </p>
             <p>
-              <span className="lifeline">2:15</span>
+              <span className="lifeline">
+                {time.minutes}:{time.seconds}
+              </span>
               <span className="mdi mdi-clock-outline mdi-24px"></span>
             </p>
           </div>
