@@ -46,6 +46,10 @@ class Quiz extends Component {
     this.startTimer();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   displayQuestions = (
     questions = this.state.questions,
     currentQuestion,
@@ -168,12 +172,16 @@ class Quiz extends Component {
           answeredQuestions: prevState.answeredQuestions + 1,
         }),
         () => {
-          this.displayQuestions(
-            this.state.questions,
-            this.state.currentQuestion,
-            this.state.prevQuestion,
-            this.state.nextQuestion
-          );
+          if (!this.state.nextQuestion) {
+            this.endGame();
+          } else {
+            this.displayQuestions(
+              this.state.questions,
+              this.state.currentQuestion,
+              this.state.prevQuestion,
+              this.state.nextQuestion
+            );
+          }
         }
       );
     }, 1500);
@@ -196,12 +204,16 @@ class Quiz extends Component {
           answeredQuestions: prevState.answeredQuestions + 1,
         }),
         () => {
-          this.displayQuestions(
-            this.state.questions,
-            this.state.currentQuestion,
-            this.state.prevQuestion,
-            this.state.nextQuestion
-          );
+          if (!this.state.nextQuestion) {
+            this.endGame();
+          } else {
+            this.displayQuestions(
+              this.state.questions,
+              this.state.currentQuestion,
+              this.state.prevQuestion,
+              this.state.nextQuestion
+            );
+          }
         }
       );
     }, 1500);
@@ -312,8 +324,7 @@ class Quiz extends Component {
             },
           },
           () => {
-            alert("Quiz has ended");
-            window.location.replace("/");
+            this.endGame();
           }
         );
       } else {
@@ -339,6 +350,32 @@ class Quiz extends Component {
     } else {
       this.setState({ nextBtnDisabled: false });
     }
+  };
+
+  endGame = () => {
+    alert("Quiz has ended!");
+    const {
+      score,
+      totalQuestions,
+      answeredQuestions,
+      correctAnswers,
+      wrongAnswers,
+      fiftyFifty,
+      hints,
+    } = this.state;
+    const playerStats = {
+      score,
+      totalQuestions,
+      answeredQuestions,
+      correctAnswers,
+      wrongAnswers,
+      fiftyFiftyUsed: 2 - fiftyFifty,
+      hintsUsed: 5 - hints,
+    };
+    console.log(playerStats);
+    setTimeout(() => {
+      window.location.replace("/");
+    }, 1000);
   };
 
   render() {
