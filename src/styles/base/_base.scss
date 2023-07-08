@@ -29,3 +29,10 @@ button {
   border-radius: $box-border-radius !important;
   color: $off-white !important;
 }
+
+.disable {
+  background-color: gray !important;
+  box-shadow: none;
+  opacity: 0.9;
+  pointer-events: none;
+}
