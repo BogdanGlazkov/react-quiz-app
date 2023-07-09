@@ -36,7 +36,7 @@ class QuizSummary extends Component {
   }
 
   render() {
-    const { state } = this.props.location;
+    const { state } = this;
     const { score } = this.state;
     let stats;
     let remark = "You need more practice!";
@@ -46,7 +46,7 @@ class QuizSummary extends Component {
     if (score > 70 && score < 85) remark = "You did great!";
     if (score >= 85) remark = "You're an absolute genius!";
 
-    if (!state) {
+    if (!this.props.location.state) {
       stats = (
         <>
           <h1 className="no-stats">
@@ -60,12 +60,12 @@ class QuizSummary extends Component {
       );
     } else {
       stats = (
-        <section>
-          <div>
-            <span className="mdi mdi-check-circle outline success-icon"></span>
+        <>
+          <div className="success-icon-container">
+            <span className="mdi mdi-check-circle-outline mdi-48px success-icon"></span>
           </div>
           <h1>Quiz has ended</h1>
-          <div className="container">
+          <div className="stats-container">
             <h3>{remark}</h3>
             <h2>Your Score: {score.toFixed(0)}%</h2>
             <span className="stat left">Total number of questions:</span>
@@ -86,11 +86,11 @@ class QuizSummary extends Component {
             <span className="stat left">50-50 used:</span>
             <span className="stat right">{state.fiftyFiftyUsed}</span>
           </div>
-          <div>
+          <div className="btn-container">
             <Link to="/">Back to Home</Link>
             <Link to="/play/quiz">Play Again</Link>
           </div>
-        </section>
+        </>
       );
     }
 
@@ -99,7 +99,7 @@ class QuizSummary extends Component {
         <Helmet>
           <title>Quiz App - Summary</title>
         </Helmet>
-        {stats}
+        <section className="summary container">{stats}</section>
       </>
     );
   }

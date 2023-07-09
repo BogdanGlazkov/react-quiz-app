@@ -1,0 +1,59 @@
+.summary.container {
+  width: 60%;
+  margin: $xs auto;
+
+  .success-icon-container {
+    text-align: center;
+  }
+
+  .success-icon {
+    color: $green;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: $lg;
+    margin: 0 auto $md;
+    color: $green;
+  }
+
+  .stats-container {
+    padding: $md $xxl;
+    text-align: center;
+    border-radius: $box-border-radius;
+    background-color: lighten($off-black, 70%);
+  }
+
+  h2 {
+    color: $blue;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $md;
+    margin: $sm auto;
+
+    & a {
+      padding: $xxs $md;
+      border-radius: $btn-border-radius;
+      border: 1px solid $blue;
+      transition: $transition;
+
+      &:hover {
+        box-shadow: $shadow;
+        color: $white;
+        background-color: $blue;
+      }
+    }
+
+    & a:nth-child(2) {
+      border: 1px solid $green;
+
+      &:hover {
+        background-color: $green;
+      }
+    }
+  }
+}
