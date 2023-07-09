@@ -1,4 +1,5 @@
 import React, { Component, createRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import M from "materialize-css";
 import classNames from "classnames";
@@ -6,6 +7,10 @@ import questions from "../questions.json";
 import correctSound from "../assets/audio/correct-answer.mp3";
 import wrongSound from "../assets/audio/wrong-answer.mp3";
 import buttonSound from "../assets/audio/button-sound.mp3";
+
+export const withNavigation = (Component) => {
+  return (props) => <Component {...props} navigate={useNavigate()} />;
+};
 
 class Quiz extends Component {
   constructor(props) {
@@ -19,7 +24,6 @@ class Quiz extends Component {
       answer: "",
       totalQuestions: 0,
       answeredQuestions: 0,
-      score: 0,
       correctAnswers: 0,
       wrongAnswers: 0,
       hints: 5,
@@ -154,7 +158,7 @@ class Quiz extends Component {
   handleQuitBtnClick = (e) => {
     this.buttonSound.current.play();
     if (window.confirm("Are you sure you want to quit?")) {
-      window.location.replace("/");
+      this.props.navigate("/");
     }
   };
 
@@ -169,7 +173,6 @@ class Quiz extends Component {
     setTimeout(() => {
       this.setState(
         (prevState) => ({
-          score: prevState.score + 1,
           correctAnswers: prevState.correctAnswers + 1,
           currentQuestionIndex: prevState.currentQuestionIndex + 1,
           answeredQuestions: prevState.answeredQuestions + 1,
@@ -358,7 +361,6 @@ class Quiz extends Component {
   endGame = () => {
     alert("Quiz has ended!");
     const {
-      score,
       totalQuestions,
       answeredQuestions,
       correctAnswers,
@@ -367,7 +369,6 @@ class Quiz extends Component {
       hints,
     } = this.state;
     const playerStats = {
-      score,
       totalQuestions,
       answeredQuestions,
       correctAnswers,
@@ -375,10 +376,9 @@ class Quiz extends Component {
       fiftyFiftyUsed: 2 - fiftyFifty,
       hintsUsed: 5 - hints,
     };
-    console.log(playerStats);
     setTimeout(() => {
-      window.location.replace("/");
-    }, 2000);
+      this.props.navigate("/play/summary", { state: playerStats });
+    }, 1000);
   };
 
   render() {
@@ -480,4 +480,4 @@ class Quiz extends Component {
   }
 }
 
-export default Quiz;
+export default withNavigation(Quiz);
