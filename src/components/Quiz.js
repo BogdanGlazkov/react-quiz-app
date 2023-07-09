@@ -23,7 +23,6 @@ class Quiz extends Component {
       nextQuestion: {},
       answer: "",
       totalQuestions: 0,
-      answeredQuestions: 0,
       correctAnswers: 0,
       wrongAnswers: 0,
       hints: 5,
@@ -175,7 +174,6 @@ class Quiz extends Component {
         (prevState) => ({
           correctAnswers: prevState.correctAnswers + 1,
           currentQuestionIndex: prevState.currentQuestionIndex + 1,
-          answeredQuestions: prevState.answeredQuestions + 1,
         }),
         () => {
           if (!this.state.nextQuestion) {
@@ -207,7 +205,6 @@ class Quiz extends Component {
         (prevState) => ({
           wrongAnswers: prevState.wrongAnswers + 1,
           currentQuestionIndex: prevState.currentQuestionIndex + 1,
-          answeredQuestions: prevState.answeredQuestions + 1,
         }),
         () => {
           if (!this.state.nextQuestion) {
@@ -360,17 +357,10 @@ class Quiz extends Component {
 
   endGame = () => {
     alert("Quiz has ended!");
-    const {
-      totalQuestions,
-      answeredQuestions,
-      correctAnswers,
-      wrongAnswers,
-      fiftyFifty,
-      hints,
-    } = this.state;
+    const { totalQuestions, correctAnswers, wrongAnswers, fiftyFifty, hints } =
+      this.state;
     const playerStats = {
       totalQuestions,
-      answeredQuestions,
       correctAnswers,
       wrongAnswers,
       fiftyFiftyUsed: 2 - fiftyFifty,
