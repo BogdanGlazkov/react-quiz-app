@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { Helmet } from "react-helmet";
 import M from "materialize-css";
 import classNames from "classnames";
@@ -31,6 +31,9 @@ class Quiz extends Component {
       time: {},
     };
     this.interval = null;
+    this.correctSound = createRef();
+    this.wrongSound = createRef();
+    this.buttonSound = createRef();
   }
 
   componentDidMount() {
@@ -112,7 +115,7 @@ class Quiz extends Component {
 
   handleNextBtnClick = (e) => {
     if (this.state.nextQuestion) {
-      document.getElementById("button-sound").play();
+      this.buttonSound.current.play();
       this.setState(
         (prevState) => ({
           currentQuestionIndex: prevState.currentQuestionIndex + 1,
@@ -131,7 +134,7 @@ class Quiz extends Component {
 
   handlePrevBtnClick = (e) => {
     if (this.state.prevQuestion) {
-      document.getElementById("button-sound").play();
+      this.buttonSound.current.play();
       this.setState(
         (prevState) => ({
           currentQuestionIndex: prevState.currentQuestionIndex - 1,
@@ -149,14 +152,14 @@ class Quiz extends Component {
   };
 
   handleQuitBtnClick = (e) => {
-    document.getElementById("button-sound").play();
+    this.buttonSound.current.play();
     if (window.confirm("Are you sure you want to quit?")) {
       window.location.replace("/");
     }
   };
 
   onCorrectAnswer = () => {
-    document.getElementById("correct-sound").play();
+    this.correctSound.current.play();
     M.toast({
       html: "Correct Answer!",
       classes: "toast-valid",
@@ -188,7 +191,7 @@ class Quiz extends Component {
   };
 
   onWrongAnswer = () => {
-    document.getElementById("wrong-sound").play();
+    this.wrongSound.current.play();
     navigator.vibrate(1000);
     M.toast({
       html: "Wrong Answer!",
@@ -375,7 +378,7 @@ class Quiz extends Component {
     console.log(playerStats);
     setTimeout(() => {
       window.location.replace("/");
-    }, 1000);
+    }, 2000);
   };
 
   render() {
@@ -396,9 +399,9 @@ class Quiz extends Component {
           <title>Quiz App - Quiz</title>
         </Helmet>
         <>
-          <audio id="correct-sound" src={correctSound}></audio>
-          <audio id="wrong-sound" src={wrongSound}></audio>
-          <audio id="button-sound" src={buttonSound}></audio>
+          <audio ref={this.correctSound} src={correctSound}></audio>
+          <audio ref={this.wrongSound} src={wrongSound}></audio>
+          <audio ref={this.buttonSound} src={buttonSound}></audio>
         </>
         <div className="questions">
           <h1>Quiz Mode</h1>
