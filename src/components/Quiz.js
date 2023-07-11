@@ -90,6 +90,11 @@ class Quiz extends Component {
   };
 
   handleOptionClick = (e) => {
+    e.target.style.pointerEvents = "none";
+    setTimeout(() => {
+      e.target.style.pointerEvents = "";
+    }, 2000);
+
     if (e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
       this.onCorrectAnswer();
     } else {
@@ -100,15 +105,15 @@ class Quiz extends Component {
   handleBtnClick = (e) => {
     switch (e.target.id) {
       case "next-btn":
-        this.handleNextBtnClick();
+        this.handleNextBtnClick(e);
         break;
 
       case "prev-btn":
-        this.handlePrevBtnClick();
+        this.handlePrevBtnClick(e);
         break;
 
       case "quit-btn":
-        this.handleQuitBtnClick();
+        this.handleQuitBtnClick(e);
         break;
 
       default:
@@ -118,7 +123,12 @@ class Quiz extends Component {
 
   handleNextBtnClick = (e) => {
     if (this.state.nextQuestion) {
+      e.target.disabled = true;
       this.buttonSound.current.play();
+      setTimeout(() => {
+        e.target.disabled = false;
+      }, 1000);
+
       this.setState(
         (prevState) => ({
           currentQuestionIndex: prevState.currentQuestionIndex + 1,
@@ -137,7 +147,12 @@ class Quiz extends Component {
 
   handlePrevBtnClick = (e) => {
     if (this.state.prevQuestion) {
+      e.target.disabled = true;
       this.buttonSound.current.play();
+      setTimeout(() => {
+        e.target.disabled = false;
+      }, 1000);
+
       this.setState(
         (prevState) => ({
           currentQuestionIndex: prevState.currentQuestionIndex - 1,
