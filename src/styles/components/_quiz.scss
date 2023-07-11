@@ -1,9 +1,18 @@
 .questions {
   background-color: $off-white;
   border-left: 5px solid $blue;
-  width: 80%;
+  width: 90%;
   margin: $md auto 0;
-  padding: $sm $md;
+  padding: $xs;
+
+  @media (min-width: $sm-breakpoint) {
+    width: 80%;
+    padding: $sm;
+  }
+
+  @media (min-width: $md-breakpoint) {
+    padding: $sm $md;
+  }
 
   h1 {
     font-size: 3rem;
@@ -39,6 +48,10 @@
     text-align: center;
   }
 
+  .options {
+    display: flex;
+  }
+
   .options-container {
     display: inline-block;
     width: 50%;
@@ -46,6 +59,7 @@
 
   .option {
     width: 90%;
+    height: 50px;
     margin: $md auto;
     padding: $xs;
     text-align: center;
@@ -58,18 +72,34 @@
     &:hover {
       background-color: darken($blue, 20%);
     }
+
+    @media (max-width: $xs-breakpoint) {
+      padding: $xxs;
+    }
   }
 
   .btn-container {
     width: 80%;
     display: flex;
+    gap: $md;
     margin: 0 auto $sm;
     padding: $md;
 
+    @media (max-width: $sm-breakpoint) {
+      width: 90%;
+      padding: 0;
+    }
+
+    @media (max-width: $xs-breakpoint) {
+      margin: 0;
+      gap: $xxs;
+      flex-wrap: wrap;
+    }
+
     button {
+      width: 100px;
       border: none;
       border-radius: $btn-border-radius;
-      margin-right: $md;
       padding: $xxs $sm;
       font-family: $quicksand;
       box-shadow: $shadow;

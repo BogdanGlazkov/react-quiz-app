@@ -427,21 +427,23 @@ class Quiz extends Component {
             </p>
           </div>
           <h2>{currentQuestion.question}</h2>
-          <div className="options-container">
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionA}
-            </p>
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionB}
-            </p>
-          </div>
-          <div className="options-container">
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionC}
-            </p>
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionD}
-            </p>
+          <div className="options">
+            <div className="options-container">
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionA}
+              </p>
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionB}
+              </p>
+            </div>
+            <div className="options-container">
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionC}
+              </p>
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionD}
+              </p>
+            </div>
           </div>
           <div className="btn-container">
             <button
