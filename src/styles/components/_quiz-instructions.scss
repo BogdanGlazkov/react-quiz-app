@@ -4,6 +4,10 @@
   margin: 0 auto;
   padding: $sm $lg;
 
+  @media (max-width: $xs-breakpoint) {
+    padding: $sm;
+  }
+
   h1 {
     font-size: $md;
     text-align: center;

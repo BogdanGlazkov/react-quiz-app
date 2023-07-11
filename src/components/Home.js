@@ -20,10 +20,10 @@ const Home = () => {
             </Link>
           </div>
           <div className="auth-container">
-            <Link className="auth-btn" to="/login" id="login-btn">
+            <Link className="auth-btn" to="/" id="login-btn">
               Login
             </Link>
-            <Link className="auth-btn" to="/register" id="signup-btn">
+            <Link className="auth-btn" to="/" id="signup-btn">
               Sign Up
             </Link>
           </div>

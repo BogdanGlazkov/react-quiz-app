@@ -1,12 +1,21 @@
 .summary.container {
-  width: 60%;
+  width: 90%;
   margin: $xs auto;
+
+  @media (min-width: $xs-breakpoint) {
+    width: 80%;
+  }
+
+  @media (min-width: $md-breakpoint) {
+    width: 60%;
+  }
 
   .success-icon-container {
     text-align: center;
   }
 
   .success-icon {
+    font-size: $xl;
     color: $green;
   }
 
@@ -22,10 +31,24 @@
     text-align: center;
     border-radius: $box-border-radius;
     background-color: lighten($off-black, 70%);
+
+    @media (max-width: $md-breakpoint) {
+      padding: $sm $md;
+    }
   }
 
   h2 {
+    font-size: $md;
     color: $blue;
+  }
+
+  h3 {
+    font-size: $md;
+    margin: 0;
+
+    @media (max-width: $md-breakpoint) {
+      // font-size: $sm;
+    }
   }
 
   .btn-container {

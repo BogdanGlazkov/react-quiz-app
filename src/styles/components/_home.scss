@@ -16,6 +16,10 @@
     border-radius: $box-border-radius;
 
     @media (max-width: $md-breakpoint) {
+      width: 60%;
+    }
+
+    @media (max-width: $sm-breakpoint) {
       padding: 0 $sm;
       width: 100%;
       height: 100%;
@@ -27,7 +31,7 @@
   }
 
   .cube {
-    font-size: 8rem;
+    font-size: $xxl;
     color: $orange;
   }
 
@@ -90,7 +94,4 @@
       box-shadow: $shadow;
     }
   }
-}
-
-@media (max-width: 768px) {
 }

@@ -52,7 +52,7 @@ class QuizSummary extends Component {
           <h1 className="no-stats">
             No statistics available. Please take a Quiz
           </h1>
-          <div>
+          <div className="btn-container">
             <Link to="/">Back to Home</Link>
             <Link to="/play/quiz">Take a Quiz</Link>
           </div>
@@ -62,7 +62,7 @@ class QuizSummary extends Component {
       stats = (
         <>
           <div className="success-icon-container">
-            <span className="mdi mdi-check-circle-outline mdi-48px success-icon"></span>
+            <span className="mdi mdi-check-circle-outline success-icon"></span>
           </div>
           <h1>Quiz has ended</h1>
           <div className="stats-container">
