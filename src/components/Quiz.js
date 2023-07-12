@@ -245,6 +245,7 @@ class Quiz extends Component {
   handleHints = () => {
     if (this.state.hints <= 0) return;
     const options = document.querySelectorAll(".option");
+    const hintBtn = document.querySelectorAll(".hint span");
     let answerIndex;
 
     options.forEach((el, idx) => {
@@ -262,6 +263,14 @@ class Quiz extends Component {
         options.forEach((el, idx) => {
           if (idx === randomNumber) {
             el.style.visibility = "hidden";
+
+            if (this.state.hints < 2) {
+              hintBtn.forEach((el) => {
+                el.style.color = "gray";
+                el.style.pointerEvents = "none";
+              });
+            }
+
             this.setState((prevState) => ({
               hints: prevState.hints - 1,
               prevRandomNumbers:
@@ -277,7 +286,9 @@ class Quiz extends Component {
 
   handleFiftyFifty = () => {
     if (this.state.fiftyFifty <= 0 || this.state.usedFiftyFifty) return;
+
     const options = document.querySelectorAll(".option");
+    const fiftyFiftyBtn = document.querySelectorAll(".fiftyFifty span");
     const randomNumbers = [];
     let answerIndex;
 
@@ -318,6 +329,14 @@ class Quiz extends Component {
         el.style.visibility = "hidden";
       }
     });
+
+    if (this.state.fiftyFifty < 2) {
+      fiftyFiftyBtn.forEach((el) => {
+        el.style.color = "gray";
+        el.style.pointerEvents = "none";
+      });
+    }
+
     this.setState((prevState) => ({
       fiftyFifty: prevState.fiftyFifty - 1,
       usedFiftyFifty: true,
@@ -344,8 +363,8 @@ class Quiz extends Component {
         this.setState(
           {
             time: {
-              minutes: 0,
-              seconds: 0,
+              minutes: "0",
+              seconds: "00",
             },
           },
           () => {
@@ -418,7 +437,7 @@ class Quiz extends Component {
         <div className="questions">
           <h1>Quiz Mode</h1>
           <div className="lifeline-container">
-            <p>
+            <p className="fiftyFifty">
               <span
                 className="mdi mdi-set-center mdi-24px lifeline-icon"
                 onClick={this.handleFiftyFifty}
@@ -427,7 +446,7 @@ class Quiz extends Component {
                 <span className="lifeline">{fiftyFifty}</span>
               </span>
             </p>
-            <p>
+            <p className="hint">
               <span
                 className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"
                 onClick={this.handleHints}
