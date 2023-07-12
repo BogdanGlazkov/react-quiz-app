@@ -14,6 +14,10 @@
     padding: $sm $md;
   }
 
+  @media (min-width: $lg-breakpoint) {
+    font-size: $sm;
+  }
+
   h1 {
     font-size: 3rem;
     margin: 0 auto;
@@ -46,6 +50,10 @@
     margin: 0 0 $md;
     line-height: 1.5;
     text-align: center;
+
+    @media (min-width: $lg-breakpoint) {
+      font-size: $sm;
+    }
   }
 
   .options {
@@ -62,7 +70,9 @@
     height: 50px;
     margin: $md auto;
     padding: $xs;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: $btn-border-radius;
     background-color: $blue;
     color: $white;
@@ -102,6 +112,7 @@
       border-radius: $btn-border-radius;
       padding: $xxs $sm;
       font-family: $quicksand;
+      font-size: $xs;
       box-shadow: $shadow;
       color: $off-white;
       transition: $transition;

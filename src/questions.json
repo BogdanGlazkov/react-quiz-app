@@ -101,7 +101,7 @@
   {
     "question": "What’s the capital of Ethiopia?",
     "optionA": "Cape Town",
-    "optionB": "San Francisco",
+    "optionB": "Addis Ababa",
     "optionC": "Abuja",
     "optionD": "Syndey",
     "answer": "Addis Ababa"
@@ -127,7 +127,7 @@
 
   {
     "question": "What are the first three words of the bible?",
-    "optionA": "be with everyone",
+    "optionA": "Be with everyone",
     "optionB": "Again Jesus asked",
     "optionC": "In the beginning",
     "optionD": "At that time",

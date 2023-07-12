@@ -325,12 +325,19 @@ class Quiz extends Component {
   };
 
   startTimer = () => {
-    const countDownTime = Date.now() + 300000;
+    const countDownTime = Date.now() + 302000;
     this.interval = setInterval(() => {
       const now = new Date();
       const distance = countDownTime - now;
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+        .toString()
+        .padStart(2, "0");
+
+      if (distance <= 60000) {
+        const timer = document.getElementById("timer");
+        timer.style.color = "red";
+      }
 
       if (distance < 0) {
         clearInterval(this.interval);
@@ -415,6 +422,7 @@ class Quiz extends Component {
               <span
                 className="mdi mdi-set-center mdi-24px lifeline-icon"
                 onClick={this.handleFiftyFifty}
+                title="Use 50-50"
               >
                 <span className="lifeline">{fiftyFifty}</span>
               </span>
@@ -423,6 +431,7 @@ class Quiz extends Component {
               <span
                 className="mdi mdi-lightbulb-on-outline mdi-24px lifeline-icon"
                 onClick={this.handleHints}
+                title="Use a hint"
               >
                 <span className="lifeline">{hints}</span>
               </span>
@@ -435,7 +444,7 @@ class Quiz extends Component {
               </span>
             </p>
             <p>
-              <span className="lifeline">
+              <span id="timer" className="lifeline">
                 {time.minutes}:{time.seconds}
               </span>
               <span className="mdi mdi-clock-outline mdi-24px"></span>
