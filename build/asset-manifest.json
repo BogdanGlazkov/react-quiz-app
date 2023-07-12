@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d36695a7.css",
+    "main.js": "/static/js/main.891b328c.js",
+    "static/media/materialdesignicons-webfont.eot": "/static/media/materialdesignicons-webfont.d95c91e88cc28d3305af.eot",
+    "static/media/materialdesignicons-webfont.ttf?v=7.2.96": "/static/media/materialdesignicons-webfont.0207b94ccbbd5be9a50b.ttf",
+    "static/media/materialdesignicons-webfont.woff?v=7.2.96": "/static/media/materialdesignicons-webfont.2e62b6565e8fb8e62ffc.woff",
+    "static/media/materialdesignicons-webfont.woff2?v=7.2.96": "/static/media/materialdesignicons-webfont.66f2d337503c6bd54e84.woff2",
+    "static/media/background.jpg": "/static/media/background.012ca6952727d843f702.jpg",
+    "static/media/correct-answer.mp3": "/static/media/correct-answer.e1cf8406691899855c2d.mp3",
+    "static/media/wrong-answer.mp3": "/static/media/wrong-answer.e08b616b298a5da45785.mp3",
+    "static/media/button-sound.mp3": "/static/media/button-sound.8277ab8cffed4aaa3b2e.mp3",
+    "index.html": "/index.html",
+    "main.d36695a7.css.map": "/static/css/main.d36695a7.css.map",
+    "main.891b328c.js.map": "/static/js/main.891b328c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d36695a7.css",
+    "static/js/main.891b328c.js"
+  ]
+}
