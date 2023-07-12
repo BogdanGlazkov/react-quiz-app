@@ -301,36 +301,24 @@ class Quiz extends Component {
     let count = 0;
     do {
       const randomNumber = Math.round(Math.random() * 3);
-      if (randomNumber !== answerIndex) {
-        if (
-          randomNumbers.length < 2 &&
-          !randomNumbers.includes(randomNumber) &&
-          !randomNumbers.includes(answerIndex)
-        ) {
-          randomNumbers.push(randomNumber);
-          count++;
-        } else {
-          while (true) {
-            const newRandomNumber = Math.round(Math.random() * 3);
-            if (
-              !randomNumbers.includes(newRandomNumber) &&
-              !randomNumbers.includes(answerIndex)
-            ) {
-              randomNumbers.push(newRandomNumber);
-              count++;
-              break;
-            }
-          }
-        }
+      if (randomNumber === answerIndex) {
+        continue;
+      } else if (
+        randomNumbers.length < 2 &&
+        !randomNumbers.includes(randomNumber)
+      ) {
+        randomNumbers.push(randomNumber);
+        count++;
       }
     } while (count < 2);
+
     options.forEach((el, idx) => {
       if (randomNumbers.includes(idx)) {
         el.style.visibility = "hidden";
       }
     });
 
-    if (this.state.fiftyFifty < 2) {
+    if (this.state.fiftyFifty <= 1) {
       fiftyFiftyBtn.forEach((el) => {
         el.style.color = "gray";
         el.style.pointerEvents = "none";
