@@ -27,7 +27,7 @@ class Quiz extends Component {
       wrongAnswers: 0,
       hints: 5,
       fiftyFifty: 2,
-      usedFiftyFifty: false,
+      optionsToHide: [],
       prevRandomNumbers: [],
       prevBtnDisabled: true,
       nextBtnDisabled: false,
@@ -79,7 +79,7 @@ class Quiz extends Component {
           answer,
           totalQuestions: questions.length,
           prevRandomNumbers: [],
-          usedFiftyFifty: false,
+          optionsToHide: [],
         },
         () => {
           this.showOptions();
@@ -243,7 +243,7 @@ class Quiz extends Component {
   };
 
   handleHints = () => {
-    if (this.state.hints <= 0) return;
+    if (this.state.hints <= 0 || this.state.optionsToHide.length > 2) return;
     const options = document.querySelectorAll(".option");
     const hintBtn = document.querySelectorAll(".hint span");
     let answerIndex;
@@ -258,7 +258,8 @@ class Quiz extends Component {
       const randomNumber = Math.round(Math.random() * 3);
       if (
         randomNumber !== answerIndex &&
-        !this.state.prevRandomNumbers.includes(randomNumber)
+        !this.state.prevRandomNumbers.includes(randomNumber) &&
+        !this.state.optionsToHide.includes(randomNumber)
       ) {
         options.forEach((el, idx) => {
           if (idx === randomNumber) {
@@ -275,6 +276,7 @@ class Quiz extends Component {
               hints: prevState.hints - 1,
               prevRandomNumbers:
                 prevState.prevRandomNumbers.concat(randomNumber),
+              optionsToHide: prevState.optionsToHide.concat(randomNumber),
             }));
           }
         });
@@ -285,7 +287,8 @@ class Quiz extends Component {
   };
 
   handleFiftyFifty = () => {
-    if (this.state.fiftyFifty <= 0 || this.state.usedFiftyFifty) return;
+    if (this.state.fiftyFifty <= 0 || this.state.optionsToHide.length > 1)
+      return;
 
     const options = document.querySelectorAll(".option");
     const fiftyFiftyBtn = document.querySelectorAll(".fiftyFifty span");
@@ -299,13 +302,15 @@ class Quiz extends Component {
     });
 
     let count = 0;
+    let hiddenArr = [];
     do {
       const randomNumber = Math.round(Math.random() * 3);
       if (randomNumber === answerIndex) {
         continue;
       } else if (
         randomNumbers.length < 2 &&
-        !randomNumbers.includes(randomNumber)
+        !randomNumbers.includes(randomNumber) &&
+        !this.state.optionsToHide.includes(randomNumber)
       ) {
         randomNumbers.push(randomNumber);
         count++;
@@ -314,6 +319,7 @@ class Quiz extends Component {
 
     options.forEach((el, idx) => {
       if (randomNumbers.includes(idx)) {
+        hiddenArr.push(idx);
         el.style.visibility = "hidden";
       }
     });
@@ -327,7 +333,7 @@ class Quiz extends Component {
 
     this.setState((prevState) => ({
       fiftyFifty: prevState.fiftyFifty - 1,
-      usedFiftyFifty: true,
+      optionsToHide: prevState.optionsToHide.concat(hiddenArr),
     }));
   };
 
